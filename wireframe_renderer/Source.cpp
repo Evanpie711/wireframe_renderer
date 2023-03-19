@@ -261,13 +261,17 @@ void render_to_buffer(char Buffer[], int screenx, int screeny, Vector3 offset, i
 
 		for (int i = 0; i <= Tri_count; i++) {
 			for (int i = 0; i <= 3; i++) {
-				int tablelinetemp[5];
+				int tablelinetemp[6];
 				tablelinetemp[0] = LineTable[TriTable[(Tri_count * 3)]];
 				tablelinetemp[1] = LineTable[TriTable[(Tri_count * 3) + 1]];
 				tablelinetemp[2] = LineTable[TriTable[(Tri_count * 3) + 2]];
 				tablelinetemp[3] = LineTable[TriTable[(Tri_count * 3)] + 1];
 				tablelinetemp[4] = LineTable[TriTable[(Tri_count * 3) + 1] + 2];
 				tablelinetemp[5] = LineTable[TriTable[(Tri_count * 3) + 2] + 3];
+
+				for (int i = 0; i <= 5; i++) {
+					Vertex_table_baked[tablelinetemp[0]]
+				}
 
 
 				//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
