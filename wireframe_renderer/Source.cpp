@@ -1,12 +1,12 @@
-﻿#include <string>
+﻿using namespace std;
+#include <string>
 #include <iostream>
 #include <math.h>
 #include <cmath>
 #include <SDL.h>
 #include <stdio.h>
 #include "PiImpactphys.h"
-
-using namespace std;
+#include <algorithm>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 512;
@@ -260,19 +260,45 @@ void render_to_buffer(char Buffer[], int screenx, int screeny, Vector3 offset, i
 		SDL_RenderDrawPoint(renderer, xtemp, ytemp-1);
 
 		for (int i = 0; i <= Tri_count; i++) {
-			for (int i = 0; i <= 3; i++) {
-				int tablelinetemp[6];
+			for (int c = 0; c <= 3; c++) {
+				int tablelinetemp[3];
+
+				int tablevertextemp[3];
+				int Xvablevertextemp[3];
+				//grabbing line point names
 				tablelinetemp[0] = LineTable[TriTable[(Tri_count * 3)]];
 				tablelinetemp[1] = LineTable[TriTable[(Tri_count * 3) + 1]];
 				tablelinetemp[2] = LineTable[TriTable[(Tri_count * 3) + 2]];
-				tablelinetemp[3] = LineTable[TriTable[(Tri_count * 3)] + 1];
-				tablelinetemp[4] = LineTable[TriTable[(Tri_count * 3) + 1] + 2];
-				tablelinetemp[5] = LineTable[TriTable[(Tri_count * 3) + 2] + 3];
+				//line point cord y
+				tablevertextemp[0] = Vertex_table_baked[LineTable[TriTable[(Tri_count * 3)]]].y;
+				tablevertextemp[1] = Vertex_table_baked[LineTable[TriTable[LineTable[TriTable[(Tri_count * 3) + 1]]]]].y;
+				tablevertextemp[2] = Vertex_table_baked[LineTable[TriTable[LineTable[TriTable[(Tri_count * 3) + 2]]]]].y;
+				//line point cord x
+				Xvablevertextemp[0] = Vertex_table_baked[LineTable[TriTable[(Tri_count * 3)]]].x;
+				Xvablevertextemp[1] = Vertex_table_baked[LineTable[TriTable[LineTable[TriTable[(Tri_count * 3) + 1]]]]].x;
+				Xvablevertextemp[2] = Vertex_table_baked[LineTable[TriTable[LineTable[TriTable[(Tri_count * 3) + 2]]]]].x;
+				std::sort(tablevertextemp, tablevertextemp + 3);
+				//epic sorting I hope
+				//std::sort(tablelinetemp, tablevertextemp + 3);
 
-				for (int i = 0; i <= 5; i++) {
-					Vertex_table_baked[tablelinetemp[0]]
+				std::sort(Xvablevertextemp, Xvablevertextemp + 3);
+				//for debuging
+				for (int i = 0; i < 3; i++) {
+					//std::cout << " Sored numbers " << i << ":" << Vertex_table_baked[tablelinetemp[i]].y;
+					//std::cout << " Sored numbers " << i << ":" << tablelinetemp[i];
 				}
 
+
+				//maxx = Xvablevertextemp[2];
+				//minx = Xvablevertextemp[0];
+				//std::qsort(tablelinetemp, tablelinetemp + 3)
+				/*
+				for (int b = 0; b <= 5; b++) {
+					if (Vertex_table_baked[tablelinetemp[1]].y < Vertex_table_baked[tablelinetemp[0]].y && Vertex_table_baked[tablelinetemp[2]].y < Vertex_table_baked[tablelinetemp[0]].y) {
+
+					}
+				}
+				*/
 
 				//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 				//SDL_RenderDrawLine(renderer, Vertex_table_baked[LineTable[(i * 2) + 1]].x + (screenx / 2), Vertex_table_baked[LineTable[(i * 2) + 1]].y + (screeny / 2), Vertex_table_baked[LineTable[(i * 2)]].x + (screenx / 2), Vertex_table_baked[LineTable[(i * 2)]].y + (screeny / 2));
